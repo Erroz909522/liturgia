@@ -38,7 +38,7 @@ export default async function EditorCulto({ params }: { params: Promise<{ id: st
       <Topo />
       <main className="pagina">
         <div className="linha">
-          <h1 style={{ marginRight: "auto" }}>Liturgia</h1>
+          <h1 style={{ marginRight: "auto" }}>Ordem do culto</h1>
           <Link className="botao principal" href={`/culto/${culto.id}/operador`}>Projetar</Link>
         </div>
 
@@ -61,6 +61,7 @@ export default async function EditorCulto({ params }: { params: Promise<{ id: st
         </form>
 
         <h2>Partes do culto</h2>
+        <p className="muted">Monte aqui a ordem em que as partes entram na projeção.</p>
         {culto.partes.map((parte, i) => {
           const tipo = parte.tipo as TipoParte;
           const fonte = FONTE[tipo] ?? "livre";

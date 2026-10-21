@@ -1,44 +1,32 @@
-import Link from "next/link";
+import Tabela, { type Coluna } from "@/components/Tabela";
 import { db } from "@/lib/db";
-import { salvarTexto } from "../actions";
+import { atualizarCelula, excluirLinha, novaLinha } from "../actions";
 import Topo from "../Topo";
 
 export const dynamic = "force-dynamic";
 
-export default async function Textos({ searchParams }: { searchParams: Promise<{ editar?: string }> }) {
-  const { editar } = await searchParams;
-  const textos = await db.textoBiblico.findMany({ orderBy: { referencia: "asc" } });
-  const atual = textos.find((t) => t.id === editar);
+const COLUNAS: Coluna[] = [
+  { chave: "referencia", titulo: "Referência", tipo: "texto", largura: 180 },
+  { chave: "versao", titulo: "Versão", tipo: "texto", largura: 80 },
+  { chave: "texto", titulo: "Texto", tipo: "textoLongo", largura: 520 },
+];
 
+export default async function Textos() {
+  const textos = await db.textoBiblico.findMany({ orderBy: { referencia: "asc" } });
   return (
     <>
       <Topo />
-      <main className="pagina">
+      <main className="pagina larga">
         <h1>Textos bíblicos</h1>
-        <p className="muted">Usados em Convocação, Confissão, Perdão e Ofertas. Um versículo por linha, começando pelo número.</p>
-
-        <form key={atual?.id ?? "novo"} action={salvarTexto.bind(null, atual?.id ?? null)} className="cartao grade">
-          <label>Referência</label>
-          <input name="referencia" defaultValue={atual?.referencia} placeholder="Ex.: Lucas 2.20" required />
-          <label>Versão</label>
-          <input name="versao" defaultValue={atual?.versao ?? "NAA"} />
-          <label>Texto</label>
-          <textarea name="texto" defaultValue={atual?.texto} rows={6} required placeholder={"20 E os pastores voltaram..."} />
-          <span />
-          <div className="linha">
-            <button className="principal">{atual ? "Salvar" : "Adicionar texto"}</button>
-            {atual && <Link href="/textos">Cancelar</Link>}
-          </div>
-        </form>
-
-        <ul className="lista">
-          {textos.map((t) => (
-            <li key={t.id}>
-              <Link href={`/textos?editar=${t.id}`}><strong>{t.referencia}</strong></Link>{" "}
-              <span className="muted">({t.versao}) {t.texto.slice(0, 90)}…</span>
-            </li>
-          ))}
-        </ul>
+        <p className="muted">Usados em Convocação, Confissão, Perdão e Ofertas. No texto, um versículo por linha, começando pelo número.</p>
+        <Tabela
+          colunas={COLUNAS}
+          linhas={textos.map((t) => ({ id: t.id, valores: { referencia: t.referencia, versao: t.versao, texto: t.texto } }))}
+          rotuloNova="Novo texto"
+          salvar={atualizarCelula.bind(null, "texto")}
+          novaLinha={novaLinha.bind(null, "texto")}
+          excluirLinha={excluirLinha.bind(null, "texto")}
+        />
       </main>
     </>
   );
