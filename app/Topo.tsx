@@ -9,6 +9,7 @@ export default function Topo() {
       <Link href="/musicas">Músicas</Link>
       <Link href="/sermoes">Sermões</Link>
       <Link href="/catecismo">Catecismo</Link>
+      <Link href="/importar">Importar do Notion</Link>
     </nav>
   );
 }

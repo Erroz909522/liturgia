@@ -138,3 +138,22 @@ export async function salvarCatecismo(id: string | null, f: FormData) {
   revalidatePath("/catecismo");
   redirect("/catecismo");
 }
+
+// ---------- Notion ----------
+
+export type EstadoImportacao = { ok: boolean; mensagem: string; avisos: string[] } | null;
+
+export async function importarNotion(_anterior: EstadoImportacao): Promise<EstadoImportacao> {
+  const { importarDoNotion } = await import("@/lib/notion");
+  try {
+    const r = await importarDoNotion();
+    revalidatePath("/", "layout");
+    return {
+      ok: true,
+      mensagem: `Importados ${r.cultos} cultos, ${r.textos} textos bíblicos, ${r.musicas} músicas, ${r.sermoes} sermões e ${r.catecismo} perguntas do catecismo.`,
+      avisos: r.avisos,
+    };
+  } catch (e) {
+    return { ok: false, mensagem: e instanceof Error ? e.message : String(e), avisos: [] };
+  }
+}
