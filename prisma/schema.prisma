@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Bancos reaproveitados de um culto para outro (como as relações do Notion)
+
+model TextoBiblico {
+  id         String       @id @default(cuid())
+  referencia String // ex.: "Lucas 2.20"
+  versao     String       @default("NAA")
+  texto      String // um versículo por linha, começando pelo número
+  partes     ParteCulto[]
+  criadoEm   DateTime     @default(now())
+}
+
+model Musica {
+  id       String       @id @default(cuid())
+  titulo   String
+  artista  String?
+  tom      String?
+  letra    String // partes separadas por linha em branco; "[Refrão]" na primeira linha nomeia a parte
+  partes   ParteCulto[]
+  criadoEm DateTime     @default(now())
+}
+
+model Sermao {
+  id        String   @id @default(cuid())
+  titulo    String
+  textoBase String?
+  topicos   String? // um tópico por linha
+  cultos    Culto[]
+  criadoEm  DateTime @default(now())
+}
+
+model Catecismo {
+  id       String       @id @default(cuid())
+  numero   Int
+  pergunta String
+  resposta String
+  partes   ParteCulto[]
+}
+
+model Culto {
+  id          String       @id @default(cuid())
+  data        DateTime
+  ocasiao     String // ex.: "Domingo - Manhã"
+  pregador    String?
+  textoSermao String? // ex.: "Sl 79.9"
+  sermao      Sermao?      @relation(fields: [sermaoId], references: [id])
+  sermaoId    String?
+  partes      ParteCulto[]
+  criadoEm    DateTime     @default(now())
+}
+
+// Uma parte da liturgia, na ordem do culto
+model ParteCulto {
+  id             String        @id @default(cuid())
+  culto          Culto         @relation(fields: [cultoId], references: [id], onDelete: Cascade)
+  cultoId        String
+  ordem          Int
+  tipo           String // ver lib/liturgia.ts
+  titulo         String
+  textoBiblico   TextoBiblico? @relation(fields: [textoBiblicoId], references: [id])
+  textoBiblicoId String?
+  musica         Musica?       @relation(fields: [musicaId], references: [id])
+  musicaId       String?
+  catecismo      Catecismo?    @relation(fields: [catecismoId], references: [id])
+  catecismoId    String?
+  conteudo       String? // texto livre (batismos, avisos, parte livre)
+  responsavel    String?
+  observacoes    String? // não vai para o telão
+  status         String        @default("pendente") // pendente | preenchido | revisado
+}
