@@ -50,3 +50,34 @@ details summary { cursor: pointer; }
 .previas { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: start; }
 .controles { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
 .controles button.ativo { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* ---------- Tabelas estilo Notion ---------- */
+.pagina.larga { max-width: none; padding: 32px 24px 80px; }
+.tabela-rolagem { overflow-x: auto; padding-bottom: 260px; margin-bottom: -260px; }
+.tabela { border-collapse: collapse; background: var(--surface); font-size: 14px; }
+.tabela th { text-align: left; font-weight: 500; color: var(--muted); font-size: 13px; padding: 8px 10px; border: 1px solid var(--line); border-top: 0; white-space: nowrap; background: var(--bg); }
+.tabela th:first-child, .tabela td:first-child { border-left: 0; }
+.tabela td { border: 1px solid var(--line); padding: 0; vertical-align: top; position: relative; max-width: 320px; }
+.tabela td.ativa { box-shadow: inset 0 0 0 2px var(--accent); }
+.tabela td.acoes { white-space: nowrap; padding: 4px 6px; border-right: 0; }
+.celula { min-height: 36px; padding: 8px 10px; cursor: text; white-space: pre-line; overflow: hidden; }
+.celula.longa { max-height: 60px; font-size: 13px; color: var(--muted); }
+.tabela td:not(.acoes):not(.ativa) { cursor: text; }
+.tabela td:not(.acoes):not(.ativa):hover { background: #f4f4f1; }
+.titulo-linha { font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { font-size: 12.5px; padding: 1px 8px; border-radius: 4px; background: var(--accent-soft); color: #1d3f9e; white-space: nowrap; max-width: 280px; overflow: hidden; text-overflow: ellipsis; }
+.editor { border: 0; border-radius: 0; padding: 8px 10px; min-height: 36px; outline: none; }
+.editor-longo { position: absolute; z-index: 20; top: 0; left: 0; width: 420px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.12); padding: 8px; }
+.editor-longo textarea { border: 0; outline: none; }
+.seletor { position: absolute; z-index: 20; top: 100%; left: 0; width: 320px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.12); padding: 8px; cursor: default; }
+.seletor ul { list-style: none; margin: 6px 0; padding: 0; max-height: 240px; overflow-y: auto; }
+.seletor li { padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 13.5px; display: flex; gap: 6px; }
+.seletor li:hover { background: #f1f1ee; }
+.seletor li.marcada { font-weight: 600; }
+.seletor li.criar { color: var(--accent); }
+.seletor .marca { width: 14px; color: var(--accent); }
+.nova-linha { display: block; border: 0; background: none; color: var(--muted); padding: 10px; }
+.nova-linha:hover { color: var(--ink); }
+button.discreto { border-color: transparent; background: none; color: var(--muted); }
+.botao.pequeno { padding: 2px 8px; font-size: 13px; margin-right: 4px; }
