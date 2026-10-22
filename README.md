@@ -5,8 +5,9 @@ App web para montar a liturgia do culto (estilo Notion) e projetar no telão (es
 ## Como funciona
 
 1. **Tabelas estilo Notion**: a tela inicial é a tabela de liturgias, uma linha por culto, com as colunas da base do Notion da igreja (Data, Ocasião, Sermão, Texto do Sermão, Pregador, Convocação, Músicas, Confissão, Perdão, Ofertas, Símbolos de fé, Batismos). Cada célula edita no lugar. As colunas de relação buscam nos bancos, que também são tabelas: textos bíblicos (NAA), músicas, sermões e catecismo. Dá para criar um item novo direto do seletor.
-2. **Ordem do culto**: quem projeta abre a liturgia (clique na data) e monta a ordem das partes.
-3. **Projeção**: a tela do operador lista todos os slides gerados da liturgia; o botão *Abrir telão* abre a janela que vai para o projetor. As duas janelas conversam pelo navegador (BroadcastChannel), sem internet.
+2. **Textos bíblicos (NAA)**: a NAA tem direitos da Sociedade Bíblica do Brasil, então o app não traz a Bíblia inteira. Em **Textos bíblicos > Colar trecho**, cole o trecho copiado de um app ou site da Bíblia (com a referência, como “Isaías 29:13-15 NAA”) e o app separa a referência e os versículos.
+3. **Ordem do culto**: quem projeta abre a liturgia (clique na data) e monta a ordem das partes.
+4. **Projeção**: a tela do operador lista todos os slides gerados da liturgia; o botão *Abrir telão* abre a janela que vai para o projetor. As duas janelas conversam pelo navegador (BroadcastChannel), sem internet.
 
 Atalhos do operador: setas ou espaço avançam, **B** liga/desliga a tela preta. Duplo clique no telão alterna tela cheia.
 

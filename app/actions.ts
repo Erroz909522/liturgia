@@ -279,3 +279,13 @@ async function definirTextoDaParte(cultoId: string, tipo: TipoParte, conteudo: s
     await db.parteCulto.create({ data: { cultoId, tipo, titulo: NOME_TIPO[tipo], ordem: tipos.length, ...data } });
   }
 }
+
+// ---------- Colar trecho bíblico ----------
+
+export async function salvarTrechoColado(dados: { referencia: string; versao: string; texto: string }) {
+  const referencia = dados.referencia.trim();
+  const texto = dados.texto.trim();
+  if (!referencia || !texto) throw new Error("Informe a referência e o texto.");
+  await db.textoBiblico.create({ data: { referencia, versao: dados.versao.trim() || "NAA", texto } });
+  revalidarTudo();
+}

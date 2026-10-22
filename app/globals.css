@@ -81,3 +81,4 @@ details summary { cursor: pointer; }
 .nova-linha:hover { color: var(--ink); }
 button.discreto { border-color: transparent; background: none; color: var(--muted); }
 .botao.pequeno { padding: 2px 8px; font-size: 13px; margin-right: 4px; }
+.colar { max-width: 760px; margin-bottom: 24px; }
