@@ -11,6 +11,7 @@ datasource db {
 
 model TextoBiblico {
   id         String       @id @default(cuid())
+  notionId   String?  @unique // página de origem no Notion
   referencia String // ex.: "Lucas 2.20"
   versao     String       @default("NAA")
   texto      String // um versículo por linha, começando pelo número
@@ -20,6 +21,7 @@ model TextoBiblico {
 
 model Musica {
   id       String       @id @default(cuid())
+  notionId   String?  @unique // página de origem no Notion
   titulo   String
   artista  String?
   tom      String?
@@ -30,6 +32,7 @@ model Musica {
 
 model Sermao {
   id        String   @id @default(cuid())
+  notionId   String?  @unique // página de origem no Notion
   titulo    String
   textoBase String?
   topicos   String? // um tópico por linha
@@ -39,6 +42,7 @@ model Sermao {
 
 model Catecismo {
   id       String       @id @default(cuid())
+  notionId   String?  @unique // página de origem no Notion
   numero   Int
   pergunta String
   resposta String
@@ -47,6 +51,7 @@ model Catecismo {
 
 model Culto {
   id          String       @id @default(cuid())
+  notionId   String?  @unique // página de origem no Notion
   data        DateTime
   ocasiao     String // ex.: "Domingo - Manhã"
   pregador    String?
