@@ -10,16 +10,29 @@ App web para montar a liturgia do culto (estilo Notion) e projetar no telão (es
 
 Atalhos do operador: setas ou espaço avançam, **B** liga/desliga a tela preta. Duplo clique no telão alterna tela cheia.
 
+## Colocar online (Vercel + Neon, gratuitos)
+
+1. Crie um banco em https://neon.tech (plano gratuito) e copie a *connection string* (começa com `postgresql://`).
+2. Em https://vercel.com, entre com o GitHub, clique em **Add New > Project** e importe este repositório.
+3. Antes de clicar em **Deploy**, abra **Environment Variables** e adicione:
+   - `DATABASE_URL`: a connection string do Neon
+   - `APP_SENHA`: a senha que a equipe vai usar para entrar no app
+4. Clique em **Deploy**. O build cria as tabelas no banco sozinho. No fim, a Vercel mostra o link do app.
+
+Ao abrir o link, o navegador pede usuário e senha: o usuário pode ser qualquer um, a senha é a `APP_SENHA`.
+Cada merge na branch `main` publica a versão nova automaticamente.
+
 ## Rodar localmente
 
-```bash
-npm install
-npx prisma db push   # cria o banco SQLite em prisma/dev.db
-npm run db:seed      # opcional: culto de exemplo de 25/10/2026
-npm run dev          # http://localhost:3000
-```
+Precisa de um banco Postgres (pode ser outro banco gratuito do Neon, separado do de produção).
 
-Precisa de um arquivo `.env` com `DATABASE_URL="file:./dev.db"`.
+```bash
+cp .env.example .env   # e preencha DATABASE_URL
+npm install
+npx prisma db push     # cria as tabelas
+npm run db:seed        # opcional: culto de exemplo de 25/10/2026
+npm run dev            # http://localhost:3000
+```
 
 ## Estrutura
 
